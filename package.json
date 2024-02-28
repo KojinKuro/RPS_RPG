@@ -1,0 +1,33 @@
+{
+  "name": "rps_rpg",
+  "version": "1.0.0",
+  "description": "## Description",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.prod.js",
+    "start": "webpack serve --open --config webpack.dev.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KojinKuro/RPS_RPG.git"
+  },
+  "keywords": [],
+  "author": "Charles Kwang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KojinKuro/RPS_RPG/issues"
+  },
+  "homepage": "https://github.com/KojinKuro/RPS_RPG#readme",
+  "devDependencies": {
+    "css-loader": "^6.10.0",
+    "html-webpack-plugin": "^5.6.0",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.2",
+    "webpack-merge": "^5.10.0"
+  }
+}
