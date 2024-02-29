@@ -1,62 +1,49 @@
 import "normalize.css";
+import Entity from "./entity.js";
 import { Paper, Rock, Scissors } from "./moves.js";
 import "./style.scss";
+
+global.game = createGameFactory();
+global.rock = new Rock();
+global.paper = new Paper();
+global.scissors = new Scissors();
+var mainView = document.querySelector(".main-view");
+
+mainView.addEventListener("click", function (event) {
+  if (isButton(event.target)) console.log(event.target.innerText);
+});
 
 function isButton(node) {
   return node.tagName.toLowerCase() === "button";
 }
 
-var mainView = document.querySelector(".main-view");
-mainView.addEventListener("click", function (event) {
-  if (isButton(event.target)) console.log(event.target.innerText);
-});
+function createGameFactory() {
+  const playerEntity = new Entity("Player");
+  const tiedEntity = new Entity("Tied");
+  const computerEntity = new Entity("Computer");
 
-function createGame() {
-  let playerPoints = 0;
-  let computerPoints = 0;
-  let tiePoints = 0;
+  const entityArray = [playerEntity, tiedEntity, computerEntity];
 
-  function getPoints() {
-    console.log("Player Points:", playerPoints);
-    console.log("Tied Points:", tiePoints);
-    console.log("Computer Points:", computerPoints);
+  function printPoints() {
+    entityArray.forEach((entity) => {
+      console.log(`${entity.name} Points: ${entity.points}`);
+    });
   }
 
-  function inputMove(move) {
-    let availableMoves = [new Scissors(), new Rock(), new Paper()];
-    let computerMove = availableMoves[randomNumber(availableMoves.length - 1)];
-    let gameResult = move.tryToBeat(computerMove);
+  function runRound() {
+    console.log(`${playerEntity.name} did ${playerEntity.move.name}`);
+    console.log(`${computerEntity.name} did ${computerEntity.move.name}`);
 
-    console.log("you did: ", move.name);
-    console.log("computer did:", computerMove.name);
-    switch (gameResult) {
-      case true:
-        console.log("you won");
-        playerPoints += 1;
-        break;
-      case false:
-        console.log("you lost");
-        computerPoints += 1;
-        break;
-      case undefined:
-        console.log("you tied");
-        tiePoints += 1;
-        break;
-    }
-
-    getPoints();
+    let gameWinner = playerEntity.fight(computerEntity);
+    gameWinner !== undefined ? gameWinner.onWin() : tiedEntity.onWin();
   }
 
-  // return a number from 0 to number including 0 and number
-  function randomNumber(number) {
-    let randomNumber = Math.floor(Math.random() * (number + 1));
-    return randomNumber;
+  function inputPlayerMove(move) {
+    playerEntity.setMove(move);
+    computerEntity.setMove();
+    runRound();
+    printPoints();
   }
 
-  return { inputMove };
+  return { inputPlayerMove };
 }
-
-global.game = createGame();
-global.rock = new Rock();
-global.paper = new Paper();
-global.scissors = new Scissors();

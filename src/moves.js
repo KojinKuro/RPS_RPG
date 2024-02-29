@@ -3,18 +3,7 @@ class Move {
     this.name = name;
     this.beats = beats;
   }
-
-  tryToBeat(moveObject) {
-    if (moveObject.name == this.name) return;
-
-    let result = false;
-    this.beats.forEach((loserName) => {
-      if (moveObject.name == loserName) result = true;
-    });
-    return result;
-  }
 }
-
 export class Rock extends Move {
   constructor() {
     super("Rock", ["Scissors"]);
