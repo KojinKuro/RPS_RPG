@@ -1,27 +1,23 @@
 import "normalize.css";
-import Entity from "./entity.js";
-import { Paper, Rock, Scissors } from "./moves.js";
+import Entity from "./javascript/entity.js";
+import { Paper, Rock, Scissors } from "./javascript/moves.js";
+import { View, ViewManger } from "./javascript/views.js";
 import "./style.scss";
 
 global.game = createGameFactory();
 global.rock = new Rock();
 global.paper = new Paper();
 global.scissors = new Scissors();
-var mainView = document.querySelector(".main-view");
 
-mainView.addEventListener("click", function (event) {
-  if (isButton(event.target)) console.log(event.target.innerText);
-});
-
-function isButton(node) {
-  return node.tagName.toLowerCase() === "button";
-}
+// init function
+(function () {
+  ViewManger.start();
+})();
 
 function createGameFactory() {
   const playerEntity = new Entity("Player");
   const tiedEntity = new Entity("Tied");
   const computerEntity = new Entity("Computer");
-
   const entityArray = [playerEntity, tiedEntity, computerEntity];
 
   function printPoints() {
