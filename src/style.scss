@@ -17,13 +17,33 @@ body {
   background-color: red;
 }
 
-.main-view {
-  background-color: blue;
-}
-
 footer {
   display: flex;
   justify-content: center;
   align-items: center;
   grid-column: 1 / -1;
+}
+
+.table {
+  display: flex;
+}
+
+// class to make anything have an RPG styled box
+.rpg-box {
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 1.25rem;
+
+  color: white;
+
+  background: rgb(71, 178, 207);
+  background: linear-gradient(
+    135deg,
+    rgba(71, 178, 207, 1) 0%,
+    rgba(104, 126, 203, 1) 30%,
+    rgba(18, 41, 153, 1) 100%
+  );
+
+  border-radius: 10px;
+  border: 10px ridge white;
 }
