@@ -4,10 +4,32 @@ import { randomNumber } from "./random.js";
 export default class Entity {
   static MOVE_LIST = [new Rock(), new Paper(), new Scissors()];
 
-  constructor(name) {
+  constructor(name, maxHealth = 10) {
     this.name = name;
     this.points = 0;
+
+    this.maxHealth = maxHealth;
+    this.currentHealth = this.maxHealth;
   }
+
+  dealDamage(damage = 1) {
+    if (this.currentHealth >= 0) return;
+
+    this.currentHealth -= damage;
+    if (this.currentHealth < 0) this.currentHealth = 0;
+    return this.currentHealth;
+  }
+
+  heal(addHealth = 1) {
+    if (this.currentHealth + addHealth > this.maxHealth) {
+      this.currentHealth = this.maxHealth;
+      return;
+    }
+
+    this.currentHealth += addHealth;
+  }
+
+  resetDamage() {}
 
   onWin() {
     console.log(`${this.name} won!`);
