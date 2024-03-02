@@ -31,33 +31,39 @@
 
   background-color: gray;
 
-  div:nth-child(1) {
+  .battle-text {
     justify-self: flex-end;
     width: 500px;
     height: 100px;
     background-color: pink;
   }
 
-  div:nth-child(2) {
-    background-color: red;
-  }
+  .battle-box {
+    position: relative;
 
-  div:nth-child(3) {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
-    gap: 10px;
 
-    background-color: white;
+    .battle-header {
+      height: 5ch;
+      position: absolute;
+      top: -3ch;
+      left: 1ch;
+    }
   }
 
   .moves-container {
     .move {
-      $move-size: 150px;
+      $move-size: 100px;
       width: $move-size;
       height: $move-size;
       object-fit: cover;
+    }
+
+    .move-name {
+      text-align: center;
     }
   }
 }
