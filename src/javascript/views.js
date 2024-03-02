@@ -63,11 +63,11 @@ export const ViewManger = (function () {
   return { start, addView, setView };
 })();
 
-var startButton = document.querySelector(".start-button");
-var battleButton = document.querySelector(".battle-button");
-var dialogButton = document.querySelector(".dialog-button");
-var winButton = document.querySelector(".win-button");
-var loseButton = document.querySelector(".lose-button");
+// var startButton = document.querySelector(".start-button");
+// var battleButton = document.querySelector(".battle-button");
+// var dialogButton = document.querySelector(".dialog-button");
+// var winButton = document.querySelector(".win-button");
+// var loseButton = document.querySelector(".lose-button");
 
-startButton.addEventListener("click", () => ViewManger.setView("start"));
-battleButton.addEventListener("click", () => ViewManger.setView("battle"));
+// startButton.addEventListener("click", () => ViewManger.setView("start"));
+// battleButton.addEventListener("click", () => ViewManger.setView("battle"));
