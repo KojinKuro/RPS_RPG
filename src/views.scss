@@ -25,7 +25,8 @@
 }
 
 // CSS FOR PlAYING Rock Paper Scissors
-.main-view#battle {
+.main-view#battle-normal,
+.main-view#battle-hard {
   display: grid;
   grid-template-rows: 2fr 1fr;
   background-color: gray;
