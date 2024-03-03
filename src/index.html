@@ -11,7 +11,7 @@
       <div class="entity-data">
         <div class="entity-image">Some image</div>
         <div>Main Player</div>
-        <div class="health-container">
+        <div class="player-health health-container">
           <div>Health</div>
           <div class="health-bar-container">
             <div class="health-bar"></div>
@@ -19,10 +19,9 @@
           </div>
         </div>
       </div>
-
-      <div class="buttons-container">
-        <button>Main Menu</button>
-        <button onclick="window.close()">Exit</button>
+      <div class="entity-buttons" style="display: none">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="exit-button">Exit</button>
       </div>
     </section>
     <main class="main-view" id="battle">
