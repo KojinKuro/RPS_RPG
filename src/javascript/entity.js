@@ -1,15 +1,9 @@
-import { availableMoves } from "./moves.js";
 import { randomNumber } from "./random.js";
 
 export default class Entity {
-  static MOVE_LIST = [
-    availableMoves.normal.rock,
-    availableMoves.normal.paper,
-    availableMoves.normal.scissors,
-  ];
-
-  constructor(name, maxHealth = 10) {
+  constructor(name, movesList, maxHealth = 10) {
     this.name = name;
+    this.movesList = movesList;
     this.points = 0;
 
     this.maxHealth = maxHealth;
@@ -44,12 +38,11 @@ export default class Entity {
     this.points += 1;
   }
 
-  setMove(move) {
-    //TODO: add checking to see if it is a valid move or not. if not make it a random move.
+  setMove(moveIndex) {
+    if (!arguments.length) moveIndex = randomNumber(this.movesList.length - 1);
+    moveIndex = Math.abs(moveIndex) % this.movesList.length;
 
-    if (!arguments.length)
-      this.move = Entity.MOVE_LIST[randomNumber(Entity.MOVE_LIST.length - 1)];
-    else this.move = move;
+    this.move = this.movesList[moveIndex];
   }
 
   fight(opponent) {

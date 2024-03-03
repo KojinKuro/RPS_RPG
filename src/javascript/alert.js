@@ -1,12 +1,9 @@
-// should be able to pass in it a dom selector it occurs on.
-//
-
 export class AlertManager {
   alerts = [];
   timerMilliseconds = 3000;
 
-  constructor(domSelector) {
-    this.parentElement = document.querySelector(domSelector);
+  constructor() {
+    this.parentElement = document.querySelector(".main-view");
     this.parentElement.style.position = "relative";
 
     this.parentElement.appendChild(this.createAlertsContainer());
