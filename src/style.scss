@@ -23,15 +23,22 @@ body {
 
 // Represents stats bars
 .entity-view {
-  display: grid;
-  grid-template-rows: 1fr 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   padding: 10px;
   background-color: grey;
 
+  .entity-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .entity-image {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background-color: black;
   }
 
@@ -94,4 +101,16 @@ footer {
 
   border-radius: 10px;
   border: 10px ridge white;
+}
+
+//for handling any alerts that appear anywhere
+.alerts-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
 }
