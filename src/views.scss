@@ -27,16 +27,8 @@
 // CSS FOR PlAYING Rock Paper Scissors
 .main-view#battle {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-
+  grid-template-rows: 2fr 1fr;
   background-color: gray;
-
-  .battle-text {
-    justify-self: flex-end;
-    width: 500px;
-    height: 100px;
-    background-color: pink;
-  }
 
   .battle-box {
     position: relative;
@@ -47,7 +39,6 @@
     align-items: center;
 
     .battle-header {
-      height: 5ch;
       position: absolute;
       top: -3ch;
       left: 1ch;
@@ -73,7 +64,7 @@
   background-color: gray;
 }
 
-// CSS FOR AFTER A BATTLEs
+// CSS FOR DIALOGUE
 .main-view#dialog {
   background-color: gray;
 }
