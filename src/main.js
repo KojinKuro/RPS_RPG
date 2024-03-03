@@ -1,5 +1,7 @@
 import "normalize.css";
+import { AlertManager } from "./javascript/alert.js";
 import Entity from "./javascript/entity.js";
+import { HealthManager } from "./javascript/health.js";
 import { Paper, Rock, Scissors } from "./javascript/moves.js";
 import { View, ViewManger } from "./javascript/views.js";
 import "./style.scss";
@@ -8,10 +10,12 @@ global.game = createGameFactory();
 global.rock = new Rock();
 global.paper = new Paper();
 global.scissors = new Scissors();
+global.alertSystem = new AlertManager(".something");
+global.healthSystem = new HealthManager(".player-health");
 
 // init function
 (function () {
-  ViewManger.start();
+  // ViewManger.start();
 })();
 
 function createGameFactory() {
