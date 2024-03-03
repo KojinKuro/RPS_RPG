@@ -1,16 +1,18 @@
 import "../views.scss";
 
-export class View {
+class View {
   static main = document.querySelector(".main-view");
 
-  constructor(id, innerHTML) {
+  constructor(id, innerHTML, callback = () => {}) {
     this.id = id;
     this.innerHTML = innerHTML;
+    this.callback = callback;
   }
 
   activateView() {
     View.main.id = this.id;
     View.main.innerHTML = this.innerHTML;
+    this.callback();
   }
 }
 
@@ -55,30 +57,6 @@ let battleView = new View(
   `<div class="something"></div>
   <div class="battle-box rpg-box">
     <div class="battle-header rpg-box">Some text</div>
-    <div class="moves-container">
-      <img class="move rpg-box" src="./images/rock.svg" alt="Rock" />
-      <div class="move-name">Rock</div>
-    </div>
-    <div class="moves-container">
-      <img class="move rpg-box" src="./images/paper.svg" alt="Paper" />
-      <div class="move-name">Paper</div>
-    </div>
-    <div class="moves-container">
-      <img
-        class="move rpg-box"
-        src="./images/scissors.svg"
-        alt="Scissors"
-      />
-      <div class="move-name">Scissors</div>
-    </div>
-    <div class="moves-container">
-      <img class="move rpg-box" src="./images/lizard.svg" alt="Lizard" />
-      <div class="move-name">Lizard</div>
-    </div>
-    <div class="moves-container">
-      <img class="move rpg-box" src="./images/spock.svg" alt="Spock" />
-      <div class="move-name">Spock</div>
-    </div>
   </div>`
 );
 
