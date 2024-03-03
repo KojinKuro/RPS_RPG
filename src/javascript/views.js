@@ -4,9 +4,7 @@ export class View {
   static main = document.querySelector(".main-view");
 
   constructor(id, innerHTML) {
-    console.log(id);
     this.id = id;
-    console.log(this.id);
     this.innerHTML = innerHTML;
   }
 
@@ -17,51 +15,74 @@ export class View {
 }
 
 export const ViewManger = (function () {
-  // start, battle, dialog, win, lose
-  let startView = new View(
-    "start",
-    `<div>
-      <h1>Rock Paper Scissors RPG</h1>
-      <h2>The game that no one asked for</h2>
-    </div>
-    <section class="button-container rpg-box">
-      <button>Start</button>
-      <button>Continue</button>
-      <button>Settings</button>
-      <button onclick="window.close()">Exit</button>
-    </section>`
-  );
-
-  let battleView = new View(
-    "battle",
-    `<div class="rpg-box">Opponent</div>
-    <div></div>
-    <div class="moves-container rpg-box">
-      <img class="move rpg-box" src="./images/rock.svg" alt="Rock" />
-      <img class="move rpg-box" src="./images/paper.svg" alt="Paper" />
-      <img class="move rpg-box" src="./images/scissors.svg" alt="Scissors" />
-    </div>`
-  );
-
   let viewChart = {
-    start: startView,
-    battle: battleView,
+    start: new View(
+      "start",
+      `<div>
+        <h1>Rock Paper Scissors RPG</h1>
+        <h2>The game that no one asked for</h2>
+      </div>
+      <section class="button-container rpg-box">
+        <button class="start-normal-button">Normal Mode</button>
+        <button class="start-hard-button">Hard Mode</button>
+        <button class="exit-button">Exit</button>
+      </section>`
+    ),
   };
 
-  function start() {
-    viewChart["start"].activateView();
-  }
+  viewChart["start"].activateView();
+  let activeView = viewChart["start"].id;
+  const getActiveView = () => activeView;
 
   function addView(view) {
     viewChart[view.id] = view;
+
+    console.log(view.id);
+    console.log(viewChart);
+    console.log(view);
   }
 
   function setView(viewID) {
     viewChart[viewID].activateView();
+    activeView = viewChart[viewID].id;
   }
 
-  return { start, addView, setView };
+  return { start, addView, setView, getActiveView };
 })();
+
+let battleView = new View(
+  "battle",
+  `<div class="something"></div>
+  <div class="battle-box rpg-box">
+    <div class="battle-header rpg-box">Some text</div>
+    <div class="moves-container">
+      <img class="move rpg-box" src="./images/rock.svg" alt="Rock" />
+      <div class="move-name">Rock</div>
+    </div>
+    <div class="moves-container">
+      <img class="move rpg-box" src="./images/paper.svg" alt="Paper" />
+      <div class="move-name">Paper</div>
+    </div>
+    <div class="moves-container">
+      <img
+        class="move rpg-box"
+        src="./images/scissors.svg"
+        alt="Scissors"
+      />
+      <div class="move-name">Scissors</div>
+    </div>
+    <div class="moves-container">
+      <img class="move rpg-box" src="./images/lizard.svg" alt="Lizard" />
+      <div class="move-name">Lizard</div>
+    </div>
+    <div class="moves-container">
+      <img class="move rpg-box" src="./images/spock.svg" alt="Spock" />
+      <div class="move-name">Spock</div>
+    </div>
+  </div>`
+);
+
+ViewManger.addView(battleView);
 
 // var startButton = document.querySelector(".start-button");
 // var battleButton = document.querySelector(".battle-button");
