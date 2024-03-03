@@ -10,16 +10,16 @@ function createMove(name = "Empty", beats = [], imageSource = ImageUnknown) {
 }
 
 export const availableMoves = {
-  normal: {
-    rock: createMove("Rock", ["Scissors"], ImageRock),
-    paper: createMove("Paper", ["Rock"], ImagePaper),
-    scissors: createMove("Scissors", ["Paper"], ImageScissors),
-  },
-  hard: {
-    paper: createMove("Paper", ["Rock", "Spock"], ImagePaper),
-    rock: createMove("Rock", ["Scissors", "Lizard"], ImageRock),
-    scissors: createMove("Scissors", ["Paper", "Lizard"], ImageScissors),
-    spock: createMove("Spock", ["Rock", "Scissors"], ImageSpock),
-    lizard: createMove("Lizard", ["Paper", "Spock"], ImageLizard),
-  },
+  normal: [
+    createMove("Rock", ["Scissors"], ImageRock),
+    createMove("Paper", ["Rock"], ImagePaper),
+    createMove("Scissors", ["Paper"], ImageScissors),
+  ],
+  hard: [
+    createMove("Paper", ["Rock", "Spock"], ImagePaper),
+    createMove("Rock", ["Scissors", "Lizard"], ImageRock),
+    createMove("Scissors", ["Paper", "Lizard"], ImageScissors),
+    createMove("Spock", ["Rock", "Scissors"], ImageSpock),
+    createMove("Lizard", ["Paper", "Spock"], ImageLizard),
+  ],
 };
