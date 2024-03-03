@@ -1,23 +1,25 @@
-class Move {
-  constructor(name = "Empty Move Object", beats = []) {
-    this.name = name;
-    this.beats = beats;
-  }
-}
-export class Rock extends Move {
-  constructor() {
-    super("Rock", ["Scissors"]);
-  }
+import ImageLizard from "../images/lizard.svg";
+import ImagePaper from "../images/paper.svg";
+import ImageRock from "../images/rock.svg";
+import ImageScissors from "../images/scissors.svg";
+import ImageSpock from "../images/spock.svg";
+import ImageUnknown from "../images/unknown.svg";
+
+function createMove(name = "Empty", beats = [], imageSource = ImageUnknown) {
+  return { name, beats, imageSource };
 }
 
-export class Paper extends Move {
-  constructor() {
-    super("Paper", ["Rock"]);
-  }
-}
-
-export class Scissors extends Move {
-  constructor() {
-    super("Scissors", ["Paper"]);
-  }
-}
+export const availableMoves = {
+  normal: {
+    rock: createMove("Rock", ["Scissors"], ImageRock),
+    paper: createMove("Paper", ["Rock"], ImagePaper),
+    scissors: createMove("Scissors", ["Paper"], ImageScissors),
+  },
+  hard: {
+    paper: createMove("Paper", ["Rock", "Spock"], ImagePaper),
+    rock: createMove("Rock", ["Scissors", "Lizard"], ImageRock),
+    scissors: createMove("Scissors", ["Paper", "Lizard"], ImageScissors),
+    spock: createMove("Spock", ["Rock", "Scissors"], ImageSpock),
+    lizard: createMove("Lizard", ["Paper", "Spock"], ImageLizard),
+  },
+};

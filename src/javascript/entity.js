@@ -1,8 +1,12 @@
-import { Paper, Rock, Scissors } from "./moves.js";
+import { availableMoves } from "./moves.js";
 import { randomNumber } from "./random.js";
 
 export default class Entity {
-  static MOVE_LIST = [new Rock(), new Paper(), new Scissors()];
+  static MOVE_LIST = [
+    availableMoves.normal.rock,
+    availableMoves.normal.paper,
+    availableMoves.normal.scissors,
+  ];
 
   constructor(name, maxHealth = 10) {
     this.name = name;
