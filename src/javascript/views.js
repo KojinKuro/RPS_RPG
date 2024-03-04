@@ -2,6 +2,7 @@ import { createGameFactory } from "../main.js";
 import "../views.scss";
 import { AlertManager } from "./alert.js";
 import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
+import { PointTracker } from "./points.js";
 
 class View {
   static main = document.querySelector(".main-view");
@@ -23,7 +24,7 @@ export const ViewManger = (function () {
   let viewChart = {
     start: new View(
       "start",
-      `<section>
+      `<section class='title'>
         <h1>Rock Paper Scissors RPG</h1>
         <h2>The game that no one asked for</h2>
       </section>
@@ -34,6 +35,11 @@ export const ViewManger = (function () {
       </section>`,
       () => {
         document.querySelector(".strategy-container").innerHTML = "";
+
+        var title = document.querySelector(".title");
+        var scoreDiv = document.createElement("div");
+        scoreDiv.innerText = `High Score: Round ${PointTracker.getHighScore()}`;
+        if (PointTracker.getHighScore()) title.appendChild(scoreDiv);
       }
     ),
   };
@@ -47,17 +53,17 @@ export const ViewManger = (function () {
     viewChart[view.id] = view;
   }
 
-  function setView(viewID) {
+  function setView(viewID = "start") {
     viewChart[viewID].activateView();
     activeView = viewChart[viewID].id;
   }
 
-  return { start, addView, setView, getActiveView };
+  return { addView, setView, getActiveView };
 })();
 
 let battleNormalView = new View(
   "battle-normal",
-  `<div class="something"></div>
+  `<div class="battle-main"></div>
   <div class="battle-box rpg-box">
     <div class="battle-header rpg-box">Chose a move</div>
   </div>`,
