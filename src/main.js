@@ -2,6 +2,8 @@ import "normalize.css";
 import { AlertManager } from "./javascript/alert.js";
 import { Entity } from "./javascript/entity.js";
 import { HealthManager } from "./javascript/health.js";
+import { createVersus, toggleMoves } from "./javascript/moves.js";
+import { PointTracker } from "./javascript/points.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
 
@@ -10,9 +12,11 @@ import "./style.scss";
   const startObserver = new MutationObserver(() => {
     const entityButtons = document.querySelector(".entity-buttons");
     const entityDataNodes = document.querySelectorAll(".entity-data");
+    const strategyContainer = document.querySelector(".strategy-container");
     const displayValue = ViewManger.getActiveView() === "start" ? "none" : "";
 
     entityButtons.style.display = displayValue;
+    strategyContainer.style.display = displayValue;
     entityDataNodes.forEach((node) => (node.style.display = displayValue));
   });
 
@@ -36,23 +40,42 @@ import "./style.scss";
   });
 })();
 
-export function createGameFactory(moves, level) {
+export function createGameFactory(moves) {
   const playerHealth = new HealthManager(".player-health");
   const computerHealth = new HealthManager(".computer-health");
-  const player = new Entity("Player", moves, level, playerHealth);
-  const computer = new Entity("Computer", moves, level, computerHealth);
+  const player = new Entity("Player", moves, 5, playerHealth);
+  const computer = new Entity("Computer", moves, 1, computerHealth);
 
   function nextRound() {
-    player.levelUp();
-    computer.levelUp();
+    AlertManager.sendAlert("Moving to next level");
+    player.setLevel(player.level + 1);
+    player.heal(1);
+    computer.setLevel(computer.level + 2);
+    computer.heal(computer.maxHealth);
   }
 
   function runTurn() {
-    AlertManager.sendAlert(`${player.name} did ${player.move.name}`);
-    AlertManager.sendAlert(`${computer.name} did ${computer.move.name}`);
+    createVersus(".battle-main", player, computer);
+    toggleMoves(".battle-box");
+    setTimeout(() => {
+      if (ViewManger.getActiveView() === "start") return;
+      toggleMoves(".battle-box");
+      document.querySelector(".battle-main").innerHTML = "";
+    }, 1500);
 
-    let gameWinner = player.fight(computer);
-    if (gameWinner) gameWinner.onWin();
+    let winner = player.fight(computer);
+    switch (winner) {
+      case player:
+        winner.onWin();
+        PointTracker.setHighScore(player.points);
+        nextRound();
+        break;
+      case computer:
+        winner.onWin();
+        AlertManager.sendAlert("You lost. Returning to main menu");
+        setTimeout(() => ViewManger.setView("start"), 3500);
+        break;
+    }
   }
 
   function inputPlayerMove(moveID) {
