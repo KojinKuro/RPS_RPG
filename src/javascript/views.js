@@ -44,10 +44,6 @@ export const ViewManger = (function () {
 
   function addView(view) {
     viewChart[view.id] = view;
-
-    console.log(view.id);
-    console.log(viewChart);
-    console.log(view);
   }
 
   function setView(viewID) {
