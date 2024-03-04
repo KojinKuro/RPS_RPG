@@ -26,18 +26,6 @@ function createMove(name = "Empty", beats = [], imageSource = ImageUnknown) {
 
 // === CODE TO PUT MOVES INTO DOM ===
 // probably move this somewhere else
-export function appendMoves(domSelector, movesArray) {
-  let parentNode = document.querySelector(domSelector);
-  movesArray.forEach((move, index) => {
-    parentNode.appendChild(createMoveContainer(move, index));
-  });
-
-  parentNode.addEventListener("click", function (e) {
-    let moveContainer = e.target.closest(".moves-container");
-    if (moveContainer) game.inputPlayerMove(moveContainer.dataset.id);
-  });
-}
-
 export function toggleMoves(domSelector) {
   if (!document.querySelector(domSelector)) return;
 
