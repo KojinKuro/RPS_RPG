@@ -5,6 +5,7 @@ export class Entity {
   constructor(name, movesList, level, healthManager) {
     this.name = name;
     this.movesList = movesList;
+    this.points = 0;
 
     this.level = level;
     this.maxHealth = this.level;
@@ -16,8 +17,10 @@ export class Entity {
   setLevel(level) {
     this.level = level;
     this.maxHealth = this.level;
-    this.heal(this.maxHealth);
-    this.updateHealth();
+  }
+
+  addPoint(pointAdd = 1) {
+    this.points += pointAdd;
   }
 
   damage(damage = 1) {
@@ -39,6 +42,7 @@ export class Entity {
 
   onWin() {
     AlertManager.sendAlert(`${this.name} won!`);
+    this.addPoint();
   }
 
   setMove(moveIndex) {
@@ -54,14 +58,18 @@ export class Entity {
     let loser = this;
     let winner = opponent;
 
-    this.move.beats.forEach((beat) => {
-      if (beat == opponent.move.name) {
+    this.move.beats.forEach((move) => {
+      if (move == opponent.move.name) {
         loser = opponent;
         winner = this;
       }
     });
 
-    loser.damage();
-    return winner;
+    let damageAmount = 1;
+    loser.damage(damageAmount);
+    AlertManager.sendAlert(
+      `${winner.name} deals ${damageAmount} damage to ${loser.name}`
+    );
+    if (!loser.currentHealth) return winner;
   }
 }
