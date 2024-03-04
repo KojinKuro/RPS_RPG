@@ -10,31 +10,36 @@
     <!-- player-column -->
     <section class="entity-view">
       <div class="entity-data" style="display: none">
-        <div class="entity-image">Some image</div>
+        <img class="entity-image" src=<%=require("./images/player.png")%>
+        alt="Player">
         <div>Main Player</div>
         <div class="player-health health-container"></div>
       </div>
-      <div class="entity-buttons rpg-box" style="display: none">
+      <nav class="entity-buttons rpg-box" style="display: none">
         <div class="cursor-container main-menu-button">
-          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
-          Main Menu
+          <img class="cursor" src=<%=require("./images/cursor.webp")%>
+          alt="Cursor" /> Main Menu
         </div>
         <div class="cursor-container exit-button">
-          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
-          Exit
+          <img class="cursor" src=<%=require("./images/cursor.webp")%>
+          alt="Cursor" /> Exit
         </div>
-      </div>
+      </nav>
     </section>
     <!-- main-view -->
     <main class="main-view"></main>
     <!-- computer-column -->
     <section class="entity-view">
       <div class="entity-data" style="display: none">
-        <div class="entity-image">Some image</div>
+        <img class="entity-image" src=<%=require("./images/computer.png")%>
+        alt="Computer Image">
         <div>Computer</div>
         <div class="computer-health health-container"></div>
       </div>
-      <div class="strategy-container rpg-box" style="display: none"></div>
+      <section
+        class="strategy-container rpg-box"
+        style="display: none"
+      ></section>
     </section>
     <footer>Coded by Charles Kwang</footer>
   </body>
