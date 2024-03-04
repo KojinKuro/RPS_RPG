@@ -38,6 +38,8 @@ import "./style.scss";
       ViewManger.setView("battle-hard");
     }
   });
+
+  global.gameDifficulty = "normal";
 })();
 
 export function createGameFactory(moves) {
@@ -56,10 +58,11 @@ export function createGameFactory(moves) {
 
   function runTurn() {
     createVersus(".battle-main", player, computer);
-    toggleMoves(".battle-box");
+    toggleMoves(".dialog-box");
+
     setTimeout(() => {
       if (ViewManger.getActiveView() === "start") return;
-      toggleMoves(".battle-box");
+      toggleMoves(".dialog-box");
       document.querySelector(".battle-main").innerHTML = "";
     }, 1500);
 
@@ -73,7 +76,7 @@ export function createGameFactory(moves) {
       case computer:
         winner.onWin();
         AlertManager.sendAlert("You lost. Returning to main menu");
-        setTimeout(() => ViewManger.setView("start"), 3500);
+        setTimeout(() => ViewManger.setView("start"), 1500);
         break;
     }
   }
