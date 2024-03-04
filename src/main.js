@@ -6,9 +6,6 @@ import { availableMoves } from "./javascript/moves.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
 
-global.ViewManager = ViewManger;
-global.game = createGameFactory(availableMoves["normal"]);
-
 // init function
 (function () {
   const startObserver = new MutationObserver(() => {
