@@ -54,12 +54,12 @@ export class Entity {
     let loser = this;
     let winner = opponent;
 
-    for (let i = 0; i < this.move.beats.length; ++i) {
-      if (this.move.beats[i] == opponent.move.name) {
+    this.move.beats.forEach((beat) => {
+      if (beat == opponent.move.name) {
         loser = opponent;
         winner = this;
       }
-    }
+    });
 
     loser.damage();
     return winner;
