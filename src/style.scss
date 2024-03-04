@@ -1,4 +1,4 @@
-$player-column-size: 200px;
+$player-column-size: 225px;
 $footer-size: 50px;
 
 @font-face {
@@ -118,13 +118,16 @@ footer {
 }
 
 .strategy-container {
-  h1,
+  h3,
   p {
     margin: 0;
-    padding: 0;
   }
 
   p {
     padding-bottom: 10px;
   }
+}
+
+.hidden {
+  display: none !important;
 }
