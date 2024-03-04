@@ -41,36 +41,36 @@ global.game = createGameFactory(availableMoves["normal"]);
 })();
 
 export function createGameFactory(moves) {
-  let alerts = new AlertManager();
-  const playerEntity = new Entity("Player", moves);
-  const computerEntity = new Entity("Computer", moves);
-  const playerHealthManager = new HealthManager(".player-health");
-  const computerHealthManger = new HealthManager(".computer-health");
+  const player = new Entity(
+    "Player",
+    moves,
+    10,
+    new HealthManager(".player-health")
+  );
+  const computer = new Entity(
+    "Computer",
+    moves,
+    10,
+    new HealthManager(".computer-health")
+  );
 
-  function updateHealth() {
-    playerHealthManager.setHealth(
-      playerEntity.currentHealth,
-      playerEntity.maxHealth
-    );
-    computerHealthManger.setHealth(
-      computerEntity.currentHealth,
-      computerEntity.maxHealth
-    );
+  function newRound() {
+    player.levelUp();
+    computer.levelUp();
   }
 
-  function runRound() {
-    alerts.sendAlert(`${playerEntity.name} did ${playerEntity.move.name}`);
-    alerts.sendAlert(`${computerEntity.name} did ${computerEntity.move.name}`);
+  function runTurn() {
+    AlertManager.sendAlert(`${player.name} did ${player.move.name}`);
+    AlertManager.sendAlert(`${computer.name} did ${computer.move.name}`);
 
-    let gameWinner = playerEntity.fight(computerEntity);
+    let gameWinner = player.fight(computer);
     if (gameWinner) gameWinner.onWin();
   }
 
   function inputPlayerMove(moveID) {
-    playerEntity.setMove(moveID);
-    computerEntity.setMove();
-    runRound();
-    updateHealth();
+    player.setMove(moveID);
+    computer.setMove();
+    runTurn();
   }
 
   return { inputPlayerMove };

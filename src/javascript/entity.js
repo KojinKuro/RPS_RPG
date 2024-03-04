@@ -1,33 +1,44 @@
+import { AlertManager } from "./alert.js";
 import { randomNumber } from "./random.js";
 
 export default class Entity {
-  constructor(name, movesList, maxHealth = 10) {
+  constructor(name, movesList, level, healthManager) {
     this.name = name;
     this.movesList = movesList;
 
-    this.maxHealth = maxHealth;
+    this.level = level;
+    this.maxHealth = this.level;
     this.currentHealth = this.maxHealth;
+    this.healthManager = healthManager;
+    this.updateHealth();
+  }
+
+  setLevel(level) {
+    this.level = level;
+    this.maxHealth = this.level;
+    this.heal(this.maxHealth);
+    this.updateHealth();
   }
 
   damage(damage = 1) {
-    if (this.currentHealth === 0) return;
-
     this.currentHealth -= damage;
     if (this.currentHealth < 0) this.currentHealth = 0;
-    return this.currentHealth;
+    this.updateHealth();
+  }
+
+  updateHealth() {
+    this.healthManager.setHealth(this.currentHealth, this.maxHealth);
   }
 
   heal(addHealth = 1) {
-    if (this.currentHealth + addHealth > this.maxHealth) {
+    if (this.currentHealth + addHealth > this.maxHealth)
       this.currentHealth = this.maxHealth;
-      return;
-    }
-
-    this.currentHealth += addHealth;
+    else this.currentHealth += addHealth;
+    this.updateHealth();
   }
 
   onWin() {
-    console.log(`${this.name} won!`);
+    AlertManager.sendAlert(`${this.name} won!`);
   }
 
   setMove(moveIndex) {
