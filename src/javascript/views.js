@@ -1,4 +1,6 @@
+import { createGameFactory } from "../main.js";
 import "../views.scss";
+import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
 
 class View {
   static main = document.querySelector(".main-view");
@@ -20,20 +22,24 @@ export const ViewManger = (function () {
   let viewChart = {
     start: new View(
       "start",
-      `<div>
+      `<section>
         <h1>Rock Paper Scissors RPG</h1>
         <h2>The game that no one asked for</h2>
-      </div>
+      </section>
       <section class="button-container rpg-box">
         <button class="start-normal-button">Normal Mode</button>
         <button class="start-hard-button">Hard Mode</button>
         <button class="exit-button">Exit</button>
-      </section>`
+      </section>`,
+      () => {
+        document.querySelector(".strategy-container").innerHTML = "";
+      }
     ),
   };
 
   viewChart["start"].activateView();
   let activeView = viewChart["start"].id;
+
   const getActiveView = () => activeView;
 
   function addView(view) {
@@ -52,21 +58,24 @@ export const ViewManger = (function () {
   return { start, addView, setView, getActiveView };
 })();
 
-let battleView = new View(
-  "battle",
+let battleNormalView = new View(
+  "battle-normal",
   `<div class="something"></div>
   <div class="battle-box rpg-box">
-    <div class="battle-header rpg-box">Some text</div>
-  </div>`
+    <div class="battle-header rpg-box">Chose a move</div>
+  </div>`,
+  () => {
+    global.game = createGameFactory(availableMoves.normal);
+    appendMoves(".battle-box", availableMoves.normal);
+    appendStrategy(".strategy-container", availableMoves.normal);
+  }
 );
 
-ViewManger.addView(battleView);
+let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
+  global.game = createGameFactory(availableMoves.hard);
+  appendMoves(".battle-box", availableMoves.hard);
+  appendStrategy(".strategy-container", availableMoves.hard);
+});
 
-// var startButton = document.querySelector(".start-button");
-// var battleButton = document.querySelector(".battle-button");
-// var dialogButton = document.querySelector(".dialog-button");
-// var winButton = document.querySelector(".win-button");
-// var loseButton = document.querySelector(".lose-button");
-
-// startButton.addEventListener("click", () => ViewManger.setView("start"));
-// battleButton.addEventListener("click", () => ViewManger.setView("battle"));
+ViewManger.addView(battleNormalView);
+ViewManger.addView(battleHardView);
