@@ -1,48 +1,47 @@
-export class AlertManager {
-  alerts = [];
-  timerMilliseconds = 3000;
+export const AlertManager = (function () {
+  const alerts = [];
+  let timerMilliseconds = 3000;
+  let alertsContainer = createAlertsContainer();
 
-  constructor() {
-    this.parentElement = document.querySelector(".main-view");
-    this.parentElement.style.position = "relative";
-
-    this.parentElement.appendChild(this.createAlertsContainer());
-    this.alertsContainer = document.querySelector(".alerts-container");
+  function attach(domSelector = ".main-view") {
+    let parentElement = document.querySelector(domSelector);
+    parentElement.style.position = "relative";
+    parentElement.append(alertsContainer);
   }
 
-  createAlertsContainer() {
+  function createAlertsContainer() {
     let alertsContainer = document.createElement("div");
     alertsContainer.classList.add("alerts-container");
-
     return alertsContainer;
   }
 
-  sendAlert(text) {
-    this.alerts.push(text);
+  function sendAlert(text) {
+    alerts.push(text);
 
-    this.updateAlerts();
+    updateAlerts();
     setTimeout(() => {
-      this.deleteOldestAlert();
-      this.updateAlerts();
-    }, this.timerMilliseconds);
+      deleteOldestAlert();
+      updateAlerts();
+    }, timerMilliseconds);
   }
 
-  updateAlerts() {
-    this.alertsContainer.innerHTML = "";
-    this.alerts.forEach((alertText) => {
+  function updateAlerts() {
+    alertsContainer.innerHTML = "";
+    alerts.forEach((alertText) => {
       let alertBox = document.createElement("article");
       alertBox.classList.add("rpg-box");
       alertBox.innerText = alertText;
-
-      this.alertsContainer.appendChild(alertBox);
+      alertsContainer.appendChild(alertBox);
     });
   }
 
-  deleteOldestAlert() {
-    this.alerts.shift();
+  function deleteOldestAlert() {
+    alerts.shift();
   }
 
-  setTimer(timerMilliseconds) {
-    this.timerMilliseconds = timerMilliseconds;
+  function setTimer(newTimerMilliseconds) {
+    timerMilliseconds = newTimerMilliseconds;
   }
-}
+
+  return { setTimer, sendAlert, attach };
+})();
