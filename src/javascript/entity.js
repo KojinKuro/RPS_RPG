@@ -4,14 +4,13 @@ export default class Entity {
   constructor(name, movesList, maxHealth = 10) {
     this.name = name;
     this.movesList = movesList;
-    this.points = 0;
 
     this.maxHealth = maxHealth;
     this.currentHealth = this.maxHealth;
   }
 
-  dealDamage(damage = 1) {
-    if (this.currentHealth >= 0) return;
+  damage(damage = 1) {
+    if (this.currentHealth === 0) return;
 
     this.currentHealth -= damage;
     if (this.currentHealth < 0) this.currentHealth = 0;
@@ -27,15 +26,8 @@ export default class Entity {
     this.currentHealth += addHealth;
   }
 
-  resetDamage() {}
-
   onWin() {
     console.log(`${this.name} won!`);
-    this.addPoint();
-  }
-
-  addPoint() {
-    this.points += 1;
   }
 
   setMove(moveIndex) {
@@ -47,8 +39,14 @@ export default class Entity {
 
   fight(opponent) {
     if (this.move.name == opponent.move.name) return;
-    for (let i = 0; i < this.move.beats.length; ++i)
-      if (this.move.beats[i] == opponent.move.name) return this;
+    for (let i = 0; i < this.move.beats.length; ++i) {
+      if (this.move.beats[i] == opponent.move.name) {
+        opponent.damage();
+        return this;
+      }
+    }
+
+    this.damage();
     return opponent;
   }
 }

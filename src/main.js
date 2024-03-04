@@ -8,8 +8,6 @@ import "./style.scss";
 
 global.ViewManager = ViewManger;
 global.game = createGameFactory(availableMoves["normal"]);
-global.playerHealth = new HealthManager(".player-health");
-global.computerHealth = new HealthManager(".computer-health");
 
 // init function
 (function () {
@@ -45,14 +43,19 @@ global.computerHealth = new HealthManager(".computer-health");
 export function createGameFactory(moves) {
   let alerts = new AlertManager();
   const playerEntity = new Entity("Player", moves);
-  const tiedEntity = new Entity("Tied", moves);
   const computerEntity = new Entity("Computer", moves);
-  const entityArray = [playerEntity, tiedEntity, computerEntity];
+  const playerHealthManager = new HealthManager(".player-health");
+  const computerHealthManger = new HealthManager(".computer-health");
 
-  function printPoints() {
-    entityArray.forEach((entity) => {
-      alerts.sendAlert(`${entity.name} Points: ${entity.points}`);
-    });
+  function updateHealth() {
+    playerHealthManager.setHealth(
+      playerEntity.currentHealth,
+      playerEntity.maxHealth
+    );
+    computerHealthManger.setHealth(
+      computerEntity.currentHealth,
+      computerEntity.maxHealth
+    );
   }
 
   function runRound() {
@@ -60,14 +63,14 @@ export function createGameFactory(moves) {
     alerts.sendAlert(`${computerEntity.name} did ${computerEntity.move.name}`);
 
     let gameWinner = playerEntity.fight(computerEntity);
-    gameWinner !== undefined ? gameWinner.onWin() : tiedEntity.onWin();
+    if (gameWinner) gameWinner.onWin();
   }
 
   function inputPlayerMove(moveID) {
     playerEntity.setMove(moveID);
     computerEntity.setMove();
     runRound();
-    printPoints();
+    updateHealth();
   }
 
   return { inputPlayerMove };
