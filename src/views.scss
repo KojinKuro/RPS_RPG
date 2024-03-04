@@ -1,0 +1,96 @@
+// CSS FOR STARTING LOGO
+.main-view#start {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1 {
+      margin: 0;
+    }
+  }
+
+  .button-container {
+    width: 500px;
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    button:hover::before {
+      content: ">";
+      position: absolute;
+      left: 50px;
+      right: 200px;
+    }
+  }
+
+  background-color: gray;
+}
+
+// CSS FOR PlAYING Rock Paper Scissors
+.main-view#battle-normal,
+.main-view#battle-hard {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  background-color: gray;
+
+  .battle-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    font-size: 1.5rem;
+
+    & > .moves-container > .move {
+      $move-size: 200px;
+      width: $move-size;
+      height: $move-size;
+    }
+  }
+
+  .battle-box {
+    position: relative;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .battle-header {
+      position: absolute;
+      top: -3ch;
+      left: 1ch;
+    }
+  }
+
+  .moves-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .move {
+      $move-size: 100px;
+      width: $move-size;
+      height: $move-size;
+      object-fit: cover;
+    }
+  }
+}
+
+// CSS FOR AFTER A BATTLEs
+.main-view#after-battle {
+  background-color: gray;
+}
+
+// CSS FOR DIALOGUE
+.main-view#dialog {
+  background-color: gray;
+}

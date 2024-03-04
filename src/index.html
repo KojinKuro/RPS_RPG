@@ -3,9 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="icon" href="https://fav.farm/🎮" />
+    <title>Rock Paper Scissors RPG</title>
   </head>
   <body>
-    <p>Test</p>
+    <!-- player-column -->
+    <section class="entity-view">
+      <div class="entity-data" style="display: none">
+        <div class="entity-image">Some image</div>
+        <div>Main Player</div>
+        <div class="player-health health-container"></div>
+      </div>
+      <div class="entity-buttons" style="display: none">
+        <button class="main-menu-button">Main Menu</button>
+        <button class="exit-button">Exit</button>
+      </div>
+    </section>
+    <!-- main-view -->
+    <main class="main-view"></main>
+    <!-- computer-column -->
+    <section class="entity-view">
+      <div class="entity-data" style="display: none">
+        <div class="entity-image">Some image</div>
+        <div>Computer</div>
+        <div class="computer-health health-container"></div>
+      </div>
+      <div class="strategy-container rpg-box" style="display: none"></div>
+    </section>
+    <footer>Coded by Charles Kwang</footer>
   </body>
 </html>

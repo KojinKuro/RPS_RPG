@@ -1,3 +1,133 @@
-p {
-  color: red;
+$player-column-size: 225px;
+$footer-size: 50px;
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("fonts/Minecraft.ttf") format("truetype");
+}
+
+* {
+  font-family: "Minecraft", sans-serif;
+}
+
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  display: grid;
+  grid-template-columns: $player-column-size 1fr $player-column-size;
+  grid-template-rows: 1fr $footer-size;
+}
+
+// Represents stats bars
+.entity-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  padding: 10px;
+  background-color: grey;
+
+  .entity-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .entity-image {
+    width: 150px;
+    height: 150px;
+    background-color: black;
+  }
+
+  .health-container {
+    width: 100%;
+  }
+
+  .entity-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+// class to make anything have an RPG styled box
+.rpg-box {
+  box-sizing: border-box;
+  padding: 10px;
+  font-size: 1.25rem;
+
+  color: white;
+
+  background: rgb(71, 178, 207);
+  background: linear-gradient(
+    135deg,
+    rgba(71, 178, 207, 1) 0%,
+    rgba(104, 126, 203, 1) 30%,
+    rgba(18, 41, 153, 1) 100%
+  );
+
+  border-radius: 10px;
+  border: 10px ridge white;
+}
+
+//for handling any alerts that appear anywhere
+.alerts-container {
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+// for anywhere that a health bar is supposed to appear
+.health-bar-container {
+  position: relative;
+  flex: 1;
+
+  width: 100%;
+  height: 20px;
+  background-color: red;
+
+  .health-bar {
+    width: 100%;
+    height: 100%;
+    background-color: green;
+  }
+
+  .health-number {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.strategy-container {
+  h3,
+  p {
+    margin: 0;
+  }
+
+  p {
+    padding-bottom: 10px;
+  }
+}
+
+.hidden {
+  display: none !important;
 }
