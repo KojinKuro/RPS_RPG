@@ -49,25 +49,12 @@
     }
   }
 
-  .battle-box {
-    position: relative;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-
-    .battle-header {
-      position: absolute;
-      top: -3ch;
-      left: 1ch;
-    }
-  }
-
   .moves-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    cursor: pointer;
 
     .move {
       $move-size: 100px;
