@@ -29,9 +29,18 @@ export const ViewManger = (function () {
         <h2>The game that no one asked for</h2>
       </section>
       <section class="button-container rpg-box">
-        <button class="start-normal-button">Normal Mode</button>
-        <button class="start-hard-button">Hard Mode</button>
-        <button class="exit-button">Exit</button>
+        <div class="cursor-container start-normal-button">
+          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          Normal Mode
+        </div>
+        <div class="cursor-container start-hard-button">
+          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          Hard Mode
+        </div>
+        <div class="cursor-container exit-button">
+          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          Exit
+        </div>
       </section>`,
       () => {
         document.querySelector(".strategy-container").innerHTML = "";

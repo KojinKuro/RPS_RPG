@@ -131,3 +131,18 @@ footer {
 .hidden {
   display: none !important;
 }
+
+// https://www.w3schools.com/css/tryit.asp?filename=trycss_tooltip_arrow_left
+.cursor-container {
+  position: relative;
+}
+
+.cursor-container .cursor {
+  position: absolute;
+  visibility: hidden;
+}
+.cursor-container:hover .cursor {
+  visibility: visible;
+  left: -3ch;
+  height: 2ch;
+}
