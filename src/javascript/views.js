@@ -1,5 +1,6 @@
 import { createGameFactory } from "../main.js";
 import "../views.scss";
+import { AlertManager } from "./alert.js";
 import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
 
 class View {
@@ -64,6 +65,7 @@ let battleNormalView = new View(
     global.game = createGameFactory(availableMoves.normal);
     appendMoves(".battle-box", availableMoves.normal);
     appendStrategy(".strategy-container", availableMoves.normal);
+    AlertManager.attach();
   }
 );
 
@@ -71,6 +73,7 @@ let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
   global.game = createGameFactory(availableMoves.hard);
   appendMoves(".battle-box", availableMoves.hard);
   appendStrategy(".strategy-container", availableMoves.hard);
+  AlertManager.attach();
 });
 
 ViewManger.addView(battleNormalView);
