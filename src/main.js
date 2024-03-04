@@ -1,12 +1,11 @@
 import "normalize.css";
 import { AlertManager } from "./javascript/alert.js";
-import Entity from "./javascript/entity.js";
+import { Entity } from "./javascript/entity.js";
 import { HealthManager } from "./javascript/health.js";
-import { availableMoves } from "./javascript/moves.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
 
-// init function
+// init function with private variables
 (function () {
   const startObserver = new MutationObserver(() => {
     const entityButtons = document.querySelector(".entity-buttons");
@@ -37,21 +36,13 @@ import "./style.scss";
   });
 })();
 
-export function createGameFactory(moves) {
-  const player = new Entity(
-    "Player",
-    moves,
-    10,
-    new HealthManager(".player-health")
-  );
-  const computer = new Entity(
-    "Computer",
-    moves,
-    10,
-    new HealthManager(".computer-health")
-  );
+export function createGameFactory(moves, level) {
+  const playerHealth = new HealthManager(".player-health");
+  const computerHealth = new HealthManager(".computer-health");
+  const player = new Entity("Player", moves, level, playerHealth);
+  const computer = new Entity("Computer", moves, level, computerHealth);
 
-  function newRound() {
+  function nextRound() {
     player.levelUp();
     computer.levelUp();
   }

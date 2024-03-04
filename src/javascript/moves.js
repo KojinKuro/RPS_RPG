@@ -52,9 +52,7 @@ function createMovesContainer(move, id) {
 export function appendStrategy(domSelector, moves) {
   let parentNode = document.querySelector(domSelector);
   parentNode.innerHTML = "";
-  moves.forEach((move) => {
-    parentNode.appendChild(createStrategyDiv(move));
-  });
+  moves.forEach((move) => parentNode.appendChild(createStrategyDiv(move)));
 }
 
 function createStrategyDiv(move) {
@@ -63,5 +61,6 @@ function createStrategyDiv(move) {
   strategyDiv.innerHTML = `
   <h1>${move.name}</h1>
   <p>Beats: ${move.beats}</p>`;
+
   return strategyDiv;
 }

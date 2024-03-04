@@ -1,7 +1,7 @@
 import { AlertManager } from "./alert.js";
 import { randomNumber } from "./random.js";
 
-export default class Entity {
+export class Entity {
   constructor(name, movesList, level, healthManager) {
     this.name = name;
     this.movesList = movesList;

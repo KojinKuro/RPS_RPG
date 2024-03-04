@@ -62,7 +62,7 @@ let battleNormalView = new View(
     <div class="battle-header rpg-box">Chose a move</div>
   </div>`,
   () => {
-    global.game = createGameFactory(availableMoves.normal);
+    global.game = createGameFactory(availableMoves.normal, 1);
     appendMoves(".battle-box", availableMoves.normal);
     appendStrategy(".strategy-container", availableMoves.normal);
     AlertManager.attach();
@@ -70,7 +70,7 @@ let battleNormalView = new View(
 );
 
 let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
-  global.game = createGameFactory(availableMoves.hard);
+  global.game = createGameFactory(availableMoves.hard, 1);
   appendMoves(".battle-box", availableMoves.hard);
   appendStrategy(".strategy-container", availableMoves.hard);
   AlertManager.attach();
