@@ -29,7 +29,7 @@ function createMove(name = "Empty", beats = [], imageSource = ImageUnknown) {
 export function appendMoves(domSelector, movesArray) {
   let parentNode = document.querySelector(domSelector);
   movesArray.forEach((move, index) => {
-    parentNode.appendChild(createMovesContainer(move, index));
+    parentNode.appendChild(createMoveContainer(move, index));
   });
 
   parentNode.addEventListener("click", function (e) {
@@ -38,7 +38,15 @@ export function appendMoves(domSelector, movesArray) {
   });
 }
 
-function createMovesContainer(move, id) {
+export function toggleMoves(domSelector) {
+  if (!document.querySelector(domSelector)) return;
+
+  let parentNode = document.querySelector(domSelector);
+  let moveNodes = parentNode.querySelectorAll(".moves-container");
+  moveNodes.forEach((node) => node.classList.toggle("hidden"));
+}
+
+function createMoveContainer(move, id = 0) {
   let movesContainer = document.createElement("div");
   movesContainer.classList.add("moves-container");
   movesContainer.dataset.id = id;
@@ -59,8 +67,22 @@ function createStrategyDiv(move) {
   let strategyDiv = document.createElement("div");
   strategyDiv.classList.add("strategy");
   strategyDiv.innerHTML = `
-  <h1>${move.name}</h1>
+  <h3>${move.name}</h3>
   <p>Beats: ${move.beats}</p>`;
 
   return strategyDiv;
+}
+
+export function createVersus(domSelector, entity1, entity2) {
+  let parentElement = document.querySelector(domSelector);
+  parentElement.innerHTML = "";
+  let entity1Container = createMoveContainer(entity1.move);
+  let entity2Container = createMoveContainer(entity2.move);
+  entity2Container.querySelector("img").style.transform = "scale(-1,1)";
+  let versusSpan = document.createElement("span");
+  versusSpan.innerText = "vs";
+
+  parentElement.appendChild(entity1Container);
+  parentElement.appendChild(versusSpan);
+  parentElement.appendChild(entity2Container);
 }
