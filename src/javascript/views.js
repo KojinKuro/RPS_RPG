@@ -1,6 +1,8 @@
+import cursorImage from "../images/cursor.webp";
 import { createGameFactory } from "../main.js";
 import "../views.scss";
 import { AlertManager } from "./alert.js";
+import { DialogBox } from "./dialog.js";
 import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
 import { PointTracker } from "./points.js";
 
@@ -30,15 +32,15 @@ export const ViewManger = (function () {
       </section>
       <section class="button-container rpg-box">
         <div class="cursor-container start-normal-button">
-          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
           Normal Mode
         </div>
         <div class="cursor-container start-hard-button">
-          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
           Hard Mode
         </div>
         <div class="cursor-container exit-button">
-          <img class="cursor" src="./images/cursor.webp" alt="Cursor" />
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
           Exit
         </div>
       </section>`,
@@ -73,12 +75,15 @@ export const ViewManger = (function () {
 let battleNormalView = new View(
   "battle-normal",
   `<div class="battle-main"></div>
-  <div class="battle-box rpg-box">
-    <div class="battle-header rpg-box">Chose a move</div>
+  <div class="dialog-box rpg-box">
+    <div class="dialog-title rpg-box">Chose a move</div>
   </div>`,
   () => {
+    global.gameDifficulty = "normal";
+
     global.game = createGameFactory(availableMoves.normal, 1);
-    appendMoves(".battle-box", availableMoves.normal);
+    global.dialogBox = new DialogBox(".dialog-box");
+    dialogBox.displayMoves(availableMoves.normal);
     appendStrategy(".strategy-container", availableMoves.normal);
     AlertManager.attach();
   }
@@ -86,7 +91,8 @@ let battleNormalView = new View(
 
 let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
   global.game = createGameFactory(availableMoves.hard, 1);
-  appendMoves(".battle-box", availableMoves.hard);
+  global.dialogBox = new DialogBox(".dialog-box");
+  dialogBox.displayMoves(availableMoves.hard);
   appendStrategy(".strategy-container", availableMoves.hard);
   AlertManager.attach();
 });
