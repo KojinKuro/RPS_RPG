@@ -50,14 +50,18 @@ export class Entity {
 
   fight(opponent) {
     if (this.move.name == opponent.move.name) return;
+
+    let loser = this;
+    let winner = opponent;
+
     for (let i = 0; i < this.move.beats.length; ++i) {
       if (this.move.beats[i] == opponent.move.name) {
-        opponent.damage();
-        return this;
+        loser = opponent;
+        winner = this;
       }
     }
 
-    this.damage();
-    return opponent;
+    loser.damage();
+    return winner;
   }
 }
