@@ -4,7 +4,7 @@ import "../views.scss";
 import { AlertManager } from "./alert.js";
 import { DialogBox } from "./dialog.js";
 import { appendStrategy } from "./moves.js";
-import { PointTracker } from "./points.js";
+import { Round } from "./round.js";
 
 class View {
   static main = document.querySelector(".main-view");
@@ -45,12 +45,10 @@ export const ViewManger = (function () {
         </div>
       </section>`,
       () => {
-        document.querySelector(".strategy-container").innerHTML = "";
-
-        var title = document.querySelector(".title");
-        var scoreDiv = document.createElement("div");
-        scoreDiv.innerText = `High Score: Round ${PointTracker.getHighScore()}`;
-        if (PointTracker.getHighScore()) title.appendChild(scoreDiv);
+        Round.reset();
+        document.querySelectorAll(".entity-view").forEach((view) => {
+          view.classList.remove("rpg-box");
+        });
       }
     ),
   };
@@ -75,28 +73,46 @@ export const ViewManger = (function () {
 let battleNormalView = new View(
   "battle-normal",
   `<div class="battle-main"></div>
-  <div class="dialog-box rpg-box">
-    <div class="dialog-title rpg-box">Chose a move</div>
-  </div>`,
+  <div class="dialog-box rpg-box"></div>`,
   () => {
     global.gameDifficulty = "normal";
     global.game = createGameFactory();
-
     global.dialogBox = new DialogBox(".dialog-box");
-    dialogBox.displayMoves();
+    dialogBox.displayContent(
+      "You are going to begin playing Rock, Paper, Scissors.\nTry your best and see how many points you can rack up!\nThe game will begin soon."
+    );
+    setTimeout(() => {
+      dialogBox.displayTitle("Chose a move");
+      dialogBox.displayMoves();
+    }, 5000);
+
     appendStrategy(".strategy-container");
     AlertManager.attach();
+
+    document.querySelectorAll(".entity-view").forEach((view) => {
+      view.classList.add("rpg-box");
+    });
   }
 );
 
 let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
   global.gameDifficulty = "hard";
   global.game = createGameFactory();
-
   global.dialogBox = new DialogBox(".dialog-box");
-  dialogBox.displayMoves();
+  dialogBox.displayContent(
+    "You are going to begin playing Rock, Paper, Scissors, Lizard, Spock.\nTry your best and see how many points you can rack up!\nThe game will begin soon."
+  );
+  setTimeout(() => {
+    dialogBox.displayTitle("Chose a move");
+    dialogBox.displayMoves();
+  }, 5000);
+
   appendStrategy(".strategy-container");
   AlertManager.attach();
+
+  document.querySelectorAll(".entity-view").forEach((view) => {
+    view.classList.add("rpg-box");
+  });
 });
 
 ViewManger.addView(battleNormalView);
