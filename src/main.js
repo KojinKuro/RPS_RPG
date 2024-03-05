@@ -2,7 +2,7 @@ import "normalize.css";
 import { AlertManager } from "./javascript/alert.js";
 import { Entity } from "./javascript/entity.js";
 import { HealthManager } from "./javascript/health.js";
-import { createVersus, toggleMoves } from "./javascript/moves.js";
+import { availableMoves, createVersus } from "./javascript/moves.js";
 import { PointTracker } from "./javascript/points.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
@@ -40,42 +40,36 @@ import "./style.scss";
   });
 })();
 
-export function createGameFactory(moves) {
+export function createGameFactory() {
   const playerHealth = new HealthManager(".player-health");
   const computerHealth = new HealthManager(".computer-health");
-  const player = new Entity("Player", moves, 5, playerHealth);
-  const computer = new Entity("Computer", moves, 1, computerHealth);
-
-  function nextRound() {
-    AlertManager.sendAlert("Moving to next level");
-    player.setLevel(player.level + 1);
-    player.heal(1);
-    computer.setLevel(computer.level + 2);
-    computer.heal(computer.maxHealth);
-  }
+  const player = new Entity(
+    "Player",
+    availableMoves[global.gameDifficulty],
+    playerHealth
+  );
+  const computer = new Entity(
+    "Computer",
+    availableMoves[global.gameDifficulty],
+    computerHealth
+  );
 
   function runTurn() {
     createVersus(".battle-main", player, computer);
-    toggleMoves(".battle-box");
-    setTimeout(() => {
-      if (ViewManger.getActiveView() === "start") return;
-      toggleMoves(".battle-box");
-      document.querySelector(".battle-main").innerHTML = "";
-    }, 1500);
+    global.dialogBox.toggleTitle();
+    global.dialogBox.toggleContent();
 
     let winner = player.fight(computer);
-    switch (winner) {
-      case player:
-        winner.onWin();
-        PointTracker.setHighScore(player.points);
-        nextRound();
-        break;
-      case computer:
-        winner.onWin();
-        AlertManager.sendAlert("You lost. Returning to main menu");
-        setTimeout(() => ViewManger.setView("start"), 3500);
-        break;
-    }
+    winner ? winner.onWin() : global.dialogBox.displayContent("Tied!");
+    player.updateHealth();
+    computer.updateHealth();
+
+    setTimeout(() => {
+      if (ViewManger.getActiveView() === "start") return;
+      global.dialogBox.toggleTitle();
+      global.dialogBox.displayMoves();
+      document.querySelector(".battle-main").innerHTML = "";
+    }, 1500);
   }
 
   function inputPlayerMove(moveID) {

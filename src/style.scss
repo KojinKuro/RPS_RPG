@@ -6,8 +6,14 @@ $footer-size: 50px;
   src: url("fonts/Minecraft.ttf") format("truetype");
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Micro+5&display=swap");
+
 * {
   font-family: "Minecraft", sans-serif;
+}
+
+.hidden {
+  display: none !important;
 }
 
 html,
@@ -21,7 +27,14 @@ body {
   grid-template-rows: 1fr $footer-size;
 }
 
-// Represents stats bars
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1 / -1;
+}
+
+// Represents stats here
 .entity-view {
   display: flex;
   flex-direction: column;
@@ -49,14 +62,20 @@ body {
   .entity-buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
-}
 
-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  grid-column: 1 / -1;
+  .strategy-container {
+    h3,
+    p {
+      margin: 0;
+    }
+
+    p {
+      font-size: 1rem;
+      padding-bottom: 10px;
+    }
+  }
 }
 
 // class to make anything have an RPG styled box
@@ -117,17 +136,39 @@ footer {
   }
 }
 
-.strategy-container {
-  h3,
-  p {
-    margin: 0;
-  }
-
-  p {
-    padding-bottom: 10px;
-  }
+// https://www.w3schools.com/css/tryit.asp?filename=trycss_tooltip_arrow_left
+.cursor-container {
+  position: relative;
+  cursor: pointer;
 }
 
-.hidden {
-  display: none !important;
+.cursor-container .cursor {
+  position: absolute;
+  visibility: hidden;
+}
+.cursor-container:hover .cursor {
+  visibility: visible;
+  left: -3ch;
+  height: 2ch;
+}
+
+//dialog box CSS
+.dialog-box {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .dialog-title {
+    position: absolute;
+    top: -3ch;
+    left: 1ch;
+  }
+
+  .dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+  }
 }

@@ -11,7 +11,12 @@
     align-items: center;
 
     h1 {
+      font-family: "Minecraft", sans-serif;
       margin: 0;
+    }
+
+    h2 {
+      font-family: "Micro 5", sans-serif;
     }
   }
 
@@ -22,13 +27,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    button:hover::before {
-      content: ">";
-      position: absolute;
-      left: 50px;
-      right: 200px;
-    }
   }
 
   background-color: gray;
@@ -42,6 +40,9 @@
   background-color: gray;
 
   .battle-main {
+    background-image: url("./images/battlebackground.png");
+    background-size: cover;
+
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -56,25 +57,12 @@
     }
   }
 
-  .battle-box {
-    position: relative;
-
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-
-    .battle-header {
-      position: absolute;
-      top: -3ch;
-      left: 1ch;
-    }
-  }
-
   .moves-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    cursor: pointer;
 
     .move {
       $move-size: 100px;
@@ -83,14 +71,4 @@
       object-fit: cover;
     }
   }
-}
-
-// CSS FOR AFTER A BATTLEs
-.main-view#after-battle {
-  background-color: gray;
-}
-
-// CSS FOR DIALOGUE
-.main-view#dialog {
-  background-color: gray;
 }

@@ -7,7 +7,7 @@ export class HealthManager {
     this.parentElement.innerHTML = "";
 
     let healthName = document.createElement("div");
-    healthName.innerText = "HP";
+    healthName.innerText = "Points";
 
     let healthBarContainer = document.createElement("div");
     healthBarContainer.classList.add("health-bar-container");

@@ -1,8 +1,10 @@
+import cursorImage from "../images/cursor.webp";
 import { createGameFactory } from "../main.js";
 import "../views.scss";
 import { AlertManager } from "./alert.js";
-import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
-import { PointTracker } from "./points.js";
+import { DialogBox } from "./dialog.js";
+import { appendStrategy } from "./moves.js";
+import { Round } from "./round.js";
 
 class View {
   static main = document.querySelector(".main-view");
@@ -28,18 +30,25 @@ export const ViewManger = (function () {
         <h1>Rock Paper Scissors RPG</h1>
         <h2>The game that no one asked for</h2>
       </section>
-      <section class="button-container rpg-box">
-        <button class="start-normal-button">Normal Mode</button>
-        <button class="start-hard-button">Hard Mode</button>
-        <button class="exit-button">Exit</button>
-      </section>`,
+      <nav class="button-container rpg-box">
+        <div class="cursor-container start-normal-button">
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
+          Normal Mode
+        </div>
+        <div class="cursor-container start-hard-button">
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
+          Hard Mode
+        </div>
+        <div class="cursor-container exit-button">
+          <img class="cursor" src="${cursorImage}" alt="Cursor" />
+          Exit
+        </div>
+      </nav>`,
       () => {
-        document.querySelector(".strategy-container").innerHTML = "";
-
-        var title = document.querySelector(".title");
-        var scoreDiv = document.createElement("div");
-        scoreDiv.innerText = `High Score: Round ${PointTracker.getHighScore()}`;
-        if (PointTracker.getHighScore()) title.appendChild(scoreDiv);
+        Round.reset();
+        document.querySelectorAll(".entity-view").forEach((view) => {
+          view.classList.remove("rpg-box");
+        });
       }
     ),
   };
@@ -64,22 +73,46 @@ export const ViewManger = (function () {
 let battleNormalView = new View(
   "battle-normal",
   `<div class="battle-main"></div>
-  <div class="battle-box rpg-box">
-    <div class="battle-header rpg-box">Chose a move</div>
-  </div>`,
+  <section class="dialog-box rpg-box"></section>`,
   () => {
-    global.game = createGameFactory(availableMoves.normal, 1);
-    appendMoves(".battle-box", availableMoves.normal);
-    appendStrategy(".strategy-container", availableMoves.normal);
+    global.gameDifficulty = "normal";
+    global.game = createGameFactory();
+    global.dialogBox = new DialogBox(".dialog-box");
+    dialogBox.displayContent(
+      "You are going to begin playing Rock, Paper, Scissors.\nTry your best and see how many points you can rack up!\nThe game will begin soon."
+    );
+    setTimeout(() => {
+      dialogBox.displayTitle("Chose a move");
+      dialogBox.displayMoves();
+    }, 5000);
+
+    appendStrategy(".strategy-container");
     AlertManager.attach();
+
+    document.querySelectorAll(".entity-view").forEach((view) => {
+      view.classList.add("rpg-box");
+    });
   }
 );
 
 let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
-  global.game = createGameFactory(availableMoves.hard, 1);
-  appendMoves(".battle-box", availableMoves.hard);
-  appendStrategy(".strategy-container", availableMoves.hard);
+  global.gameDifficulty = "hard";
+  global.game = createGameFactory();
+  global.dialogBox = new DialogBox(".dialog-box");
+  dialogBox.displayContent(
+    "You are going to begin playing Rock, Paper, Scissors, Lizard, Spock.\nTry your best and see how many points you can rack up!\nThe game will begin soon."
+  );
+  setTimeout(() => {
+    dialogBox.displayTitle("Chose a move");
+    dialogBox.displayMoves();
+  }, 5000);
+
+  appendStrategy(".strategy-container");
   AlertManager.attach();
+
+  document.querySelectorAll(".entity-view").forEach((view) => {
+    view.classList.add("rpg-box");
+  });
 });
 
 ViewManger.addView(battleNormalView);
