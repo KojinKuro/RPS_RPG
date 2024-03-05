@@ -22,7 +22,7 @@ npm run start
 
 ## 🖼️ Preview
 
-Include Image of the App here
+![Screenshot of Game](https://storage.googleapis.com/openscreenshot/n%2Fj%2Fn/lckgwMnjn.png)
 
 ## ✨ Features
 
@@ -44,4 +44,5 @@ This is the final project for Turing Mod 1. This project has taken around 30 hou
 ## 👏 Credits
 
 - Coded by Charles Kwang
-- Icons provided https://game-icons.net/
+- Background from [Open Game Art](https://opengameart.org/)
+- Icons provided [Game Icons](https://game-icons.net/)
