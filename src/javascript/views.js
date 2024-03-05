@@ -30,7 +30,7 @@ export const ViewManger = (function () {
         <h1>Rock Paper Scissors RPG</h1>
         <h2>The game that no one asked for</h2>
       </section>
-      <section class="button-container rpg-box">
+      <nav class="button-container rpg-box">
         <div class="cursor-container start-normal-button">
           <img class="cursor" src="${cursorImage}" alt="Cursor" />
           Normal Mode
@@ -43,7 +43,7 @@ export const ViewManger = (function () {
           <img class="cursor" src="${cursorImage}" alt="Cursor" />
           Exit
         </div>
-      </section>`,
+      </nav>`,
       () => {
         Round.reset();
         document.querySelectorAll(".entity-view").forEach((view) => {
@@ -73,7 +73,7 @@ export const ViewManger = (function () {
 let battleNormalView = new View(
   "battle-normal",
   `<div class="battle-main"></div>
-  <div class="dialog-box rpg-box"></div>`,
+  <section class="dialog-box rpg-box"></section>`,
   () => {
     global.gameDifficulty = "normal";
     global.game = createGameFactory();
