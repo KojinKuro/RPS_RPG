@@ -2,11 +2,7 @@ import "normalize.css";
 import { AlertManager } from "./javascript/alert.js";
 import { Entity } from "./javascript/entity.js";
 import { HealthManager } from "./javascript/health.js";
-import {
-  availableMoves,
-  createVersus,
-  toggleMoves,
-} from "./javascript/moves.js";
+import { availableMoves, createVersus } from "./javascript/moves.js";
 import { PointTracker } from "./javascript/points.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
@@ -42,8 +38,6 @@ import "./style.scss";
       ViewManger.setView("battle-hard");
     }
   });
-
-  global.gameDifficulty = "normal";
 })();
 
 export function createGameFactory() {
@@ -52,47 +46,30 @@ export function createGameFactory() {
   const player = new Entity(
     "Player",
     availableMoves[global.gameDifficulty],
-    5,
     playerHealth
   );
   const computer = new Entity(
     "Computer",
     availableMoves[global.gameDifficulty],
-    1,
     computerHealth
   );
 
-  function nextRound() {
-    AlertManager.sendAlert("Moving to next level");
-    player.setLevel(player.level + 1);
-    player.heal(1);
-    computer.setLevel(computer.level + 2);
-    computer.heal(computer.maxHealth);
-  }
-
   function runTurn() {
     createVersus(".battle-main", player, computer);
-    toggleMoves(".dialog-box");
+    global.dialogBox.toggleTitle();
+    global.dialogBox.toggleContent();
+
+    let winner = player.fight(computer);
+    winner ? winner.onWin() : global.dialogBox.displayContent("Tied!");
+    player.updateHealth();
+    computer.updateHealth();
 
     setTimeout(() => {
       if (ViewManger.getActiveView() === "start") return;
-      toggleMoves(".dialog-box");
+      global.dialogBox.toggleTitle();
+      global.dialogBox.displayMoves();
       document.querySelector(".battle-main").innerHTML = "";
     }, 1500);
-
-    let winner = player.fight(computer);
-    switch (winner) {
-      case player:
-        winner.onWin();
-        PointTracker.setHighScore(player.points);
-        nextRound();
-        break;
-      case computer:
-        winner.onWin();
-        AlertManager.sendAlert("You lost. Returning to main menu");
-        setTimeout(() => ViewManger.setView("start"), 1500);
-        break;
-    }
   }
 
   function inputPlayerMove(moveID) {
