@@ -11,7 +11,12 @@
     align-items: center;
 
     h1 {
+      font-family: "Minecraft", sans-serif;
       margin: 0;
+    }
+
+    h2 {
+      font-family: "Micro 5", sans-serif;
     }
   }
 
@@ -35,6 +40,9 @@
   background-color: gray;
 
   .battle-main {
+    background-image: url("./images/battlebackground.png");
+    background-size: cover;
+
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -63,14 +71,4 @@
       object-fit: cover;
     }
   }
-}
-
-// CSS FOR AFTER A BATTLEs
-.main-view#after-battle {
-  background-color: gray;
-}
-
-// CSS FOR DIALOGUE
-.main-view#dialog {
-  background-color: gray;
 }

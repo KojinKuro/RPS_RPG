@@ -6,6 +6,8 @@ $footer-size: 50px;
   src: url("fonts/Minecraft.ttf") format("truetype");
 }
 
+@import url("https://fonts.googleapis.com/css2?family=Micro+5&display=swap");
+
 * {
   font-family: "Minecraft", sans-serif;
 }
@@ -70,6 +72,7 @@ footer {
     }
 
     p {
+      font-size: 1rem;
       padding-bottom: 10px;
     }
   }
