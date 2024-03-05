@@ -1,4 +1,5 @@
 import { availableMoves } from "./moves.js";
+import { ViewManger } from "./views.js";
 
 export class DialogBox {
   constructor(domSelector) {
@@ -13,10 +14,27 @@ export class DialogBox {
     this.dialogContent = this.parentElement.querySelector(".dialog-content");
     if (!this.dialogContent) this.dialogContent = this.createDialogContent();
     this.parentElement.appendChild(this.dialogContent);
+
+    // adding event listener to track the move clicks
+    this.parentElement.addEventListener("click", function (e) {
+      let moveContainer = e.target.closest(".moves-container");
+      if (moveContainer) game.inputPlayerMove(moveContainer.dataset.id);
+      // remove this event listener if the view is start
+      if (ViewManger.getActiveView() == "start")
+        e.source.removeEventListener("click", arguments.callee);
+    });
   }
 
   toggleDialogBox() {
     this.parentElement.classList.toggle("hidden");
+  }
+
+  toggleTitle() {
+    this.dialogTitle.classList.toggle("hidden");
+  }
+
+  toggleContent() {
+    this.dialogContent.classList.toggle("hidden");
   }
 
   displayTitle(text = "") {
@@ -30,6 +48,9 @@ export class DialogBox {
   displayContent(text) {
     this.dialogContent.innerHTML = "";
     this.dialogContent.innerText = text;
+
+    if (text === "") this.dialogContent.classList.add("hidden");
+    else this.dialogContent.classList.remove("hidden");
   }
 
   createDialogTitle() {
@@ -53,12 +74,7 @@ export class DialogBox {
     availableMoves[global.gameDifficulty].forEach((move, index) => {
       dialogContent.appendChild(this.createMoveContainer(move, index));
     });
-
-    // adding event listener to track the move clicks
-    this.parentElement.addEventListener("click", function (e) {
-      let moveContainer = e.target.closest(".moves-container");
-      if (moveContainer) game.inputPlayerMove(moveContainer.dataset.id);
-    });
+    this.dialogContent.classList.remove("hidden");
   }
 
   createMoveContainer(move, id = 0) {
