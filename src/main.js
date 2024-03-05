@@ -2,7 +2,11 @@ import "normalize.css";
 import { AlertManager } from "./javascript/alert.js";
 import { Entity } from "./javascript/entity.js";
 import { HealthManager } from "./javascript/health.js";
-import { createVersus, toggleMoves } from "./javascript/moves.js";
+import {
+  availableMoves,
+  createVersus,
+  toggleMoves,
+} from "./javascript/moves.js";
 import { PointTracker } from "./javascript/points.js";
 import { ViewManger } from "./javascript/views.js";
 import "./style.scss";
@@ -42,11 +46,21 @@ import "./style.scss";
   global.gameDifficulty = "normal";
 })();
 
-export function createGameFactory(moves) {
+export function createGameFactory() {
   const playerHealth = new HealthManager(".player-health");
   const computerHealth = new HealthManager(".computer-health");
-  const player = new Entity("Player", moves, 5, playerHealth);
-  const computer = new Entity("Computer", moves, 1, computerHealth);
+  const player = new Entity(
+    "Player",
+    availableMoves[global.gameDifficulty],
+    5,
+    playerHealth
+  );
+  const computer = new Entity(
+    "Computer",
+    availableMoves[global.gameDifficulty],
+    1,
+    computerHealth
+  );
 
   function nextRound() {
     AlertManager.sendAlert("Moving to next level");

@@ -45,10 +45,12 @@ function createMoveContainer(move, id = 0) {
   return movesContainer;
 }
 
-export function appendStrategy(domSelector, moves) {
+export function appendStrategy(domSelector) {
   let parentNode = document.querySelector(domSelector);
   parentNode.innerHTML = "";
-  moves.forEach((move) => parentNode.appendChild(createStrategyDiv(move)));
+  availableMoves[global.gameDifficulty].forEach((move) =>
+    parentNode.appendChild(createStrategyDiv(move))
+  );
 }
 
 function createStrategyDiv(move) {

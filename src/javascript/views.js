@@ -3,7 +3,7 @@ import { createGameFactory } from "../main.js";
 import "../views.scss";
 import { AlertManager } from "./alert.js";
 import { DialogBox } from "./dialog.js";
-import { appendMoves, appendStrategy, availableMoves } from "./moves.js";
+import { appendStrategy } from "./moves.js";
 import { PointTracker } from "./points.js";
 
 class View {
@@ -80,20 +80,22 @@ let battleNormalView = new View(
   </div>`,
   () => {
     global.gameDifficulty = "normal";
+    global.game = createGameFactory();
 
-    global.game = createGameFactory(availableMoves.normal, 1);
     global.dialogBox = new DialogBox(".dialog-box");
-    dialogBox.displayMoves(availableMoves.normal);
-    appendStrategy(".strategy-container", availableMoves.normal);
+    dialogBox.displayMoves();
+    appendStrategy(".strategy-container");
     AlertManager.attach();
   }
 );
 
 let battleHardView = new View("battle-hard", battleNormalView.innerHTML, () => {
-  global.game = createGameFactory(availableMoves.hard, 1);
+  global.gameDifficulty = "hard";
+  global.game = createGameFactory();
+
   global.dialogBox = new DialogBox(".dialog-box");
-  dialogBox.displayMoves(availableMoves.hard);
-  appendStrategy(".strategy-container", availableMoves.hard);
+  dialogBox.displayMoves();
+  appendStrategy(".strategy-container");
   AlertManager.attach();
 });
 

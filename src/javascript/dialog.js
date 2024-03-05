@@ -1,3 +1,5 @@
+import { availableMoves } from "./moves.js";
+
 export class DialogBox {
   constructor(domSelector) {
     this.parentElement = document.querySelector(domSelector);
@@ -44,11 +46,11 @@ export class DialogBox {
     return dialogContent;
   }
 
-  displayMoves(movesArray) {
+  displayMoves() {
     let dialogContent = this.parentElement.querySelector(".dialog-content");
     if (!dialogContent) dialogContent = this.createDialogContent();
     dialogContent.innerHTML = "";
-    movesArray.forEach((move, index) => {
+    availableMoves[global.gameDifficulty].forEach((move, index) => {
       dialogContent.appendChild(this.createMoveContainer(move, index));
     });
 
