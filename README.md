@@ -12,6 +12,8 @@ This is a website that turns the classic game of Rock Paper into a Japanese RPG-
 
 ## 📖 Instructions
 
+[Live Demo](https://kojinkuro.github.io/RPS_RPG/)
+
 ```bash
 git clone git@github.com:KojinKuro/RPS_RPG.git
 cd RPS_RPG
