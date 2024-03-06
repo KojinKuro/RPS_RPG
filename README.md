@@ -2,7 +2,7 @@
 
 ## 📝 Description
 
-This is a website that turns the classic game of Rock Paper into a Japanese RPG-style game. The game itself is themed after FF7. The game has the user to go through rounds of opponents with more and more health. How far a player gets is tracked by the game. The main technologies used to build this were: Node Package Manager, Sass, Javascript, and Webpack.
+This is a website that turns the classic game of Rock Paper into a Japanese RPG-style game. The game itself is themed after Final Fantasy 7. The game has the user to go through rounds of opponents with more and more health. How far a player gets is tracked by the game. The main technologies used to build this were: Node Package Manager, Sass, Javascript, HTML, and Webpack.
 
 ## 📋 Requirements
 
@@ -34,7 +34,7 @@ npm run start
 
 ## 🌱 Context
 
-This is the final project for Turing Mod 1. This project has taken around 30 hours to program in total.
+This is the final project for my first term at Turing School. This was week 6 of a 24 week program. This project has taken around 30 hours to program in total.
 
 ## 🚀 Future Roadmap
 
